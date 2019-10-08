@@ -2,7 +2,7 @@ import test from 'ava'
 import { isTollFreeDay } from '../src/utils/dates'
 import dayjs from 'dayjs'
 
-test.todo('that saturday is a free day', t => {
+test('that saturday is a free day', t => {
 
   const actual = isTollFreeDay({
     timestamp: dayjs()
@@ -14,7 +14,7 @@ test.todo('that saturday is a free day', t => {
   t.is(actual, expected)
 })
 
-test.todo('that sunday is a free day', t => {
+test('that sunday is a free day', t => {
 
   const actual = isTollFreeDay({
     timestamp: dayjs()

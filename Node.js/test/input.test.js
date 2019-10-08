@@ -64,7 +64,125 @@ test('that dates with multiple days calculate the correct fee', t => {
     ],
     vehicleType: 'car',
   })
-  const expected = 36
 
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes on a saturday are free', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(6)
+        .unix(),
+    ],
+    vehicleType: 'car',
+  })
+
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes on a sunday are free', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(0)
+        .unix(),
+    ],
+    vehicleType: 'car',
+  })
+
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes on christmas are free', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .month(11)
+        .date(24)
+        .unix(),
+    ],
+    vehicleType: 'car',
+  })
+
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes on a motorbike on a monday are free', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(1)
+        .unix(),
+    ],
+    vehicleType: 'motorbike',
+  })
+
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes on a tractor on a tuesday are free', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(2)
+        .unix(),
+    ],
+    vehicleType: 'tractor',
+  })
+
+  const expected = 0
+  t.is(actual, expected)
+})
+
+test('that passes with a car on a monday during rush hour costs 18', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(1)
+        .hour(7)
+        .minute(0)
+        .second(0)
+        .unix(),
+    ],
+    vehicleType: 'car',
+  })
+
+  const expected = 18
+  t.is(actual, expected)
+})
+
+test('that two passes with a car on a monday during rush hour costs 36', t => {
+
+  const actual = tollFeeCalculator({
+    dates: [
+      dayjs()
+        .day(1)
+        .hour(7)
+        .minute(0)
+        .second(0)
+        .unix(),
+      dayjs()
+        .day(1)
+        .hour(15)
+        .minute(30)
+        .second(0)
+        .unix(),
+    ],
+    vehicleType: 'car',
+  })
+
+  const expected = 18
   t.is(actual, expected)
 })
