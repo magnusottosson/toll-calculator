@@ -1,15 +1,77 @@
 import test from 'ava'
+import { isTollFreeDay } from '../src/utils/dates'
+import dayjs from 'dayjs'
 
-test.todo('that that monday is NOT toll free')
+test('that that monday is NOT toll free', t => {
 
-test.todo('that that tuesday is NOT toll free')
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .day(1)
+      .unix(),
+  })
 
-test.todo('that that wednesday is NOT toll free')
+  const expected = false
+  t.is(actual, expected)
+})
 
-test.todo('that that thursday is NOT toll free')
+test('that that tuesday is NOT toll free', t => {
 
-test.todo('that that friday is NOT toll free')
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .day(2)
+      .unix(),
+  })
 
-test.todo('that that february 29 2020 (Saturday) is toll free')
+  const expected = false
+  t.is(actual, expected)
+})
 
-test.todo('that that february 29 2020 (Thursday) is NOT toll free')
+test('that that wednesday is NOT toll free', t => {
+
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .day(3)
+      .unix(),
+  })
+
+  const expected = false
+  t.is(actual, expected)
+})
+
+test('that that thursday is NOT toll free', t => {
+
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .day(4)
+      .unix(),
+  })
+
+  const expected = false
+  t.is(actual, expected)
+})
+
+test('that that friday is NOT toll free', t => {
+
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .day(5)
+      .unix(),
+  })
+
+  const expected = false
+  t.is(actual, expected)
+})
+
+test('that that february 29 2024 (Thursday) is NOT toll free', t => {
+
+  const actual = isTollFreeDay({
+    timestamp: dayjs()
+      .year(2024)
+      .month(1)
+      .date(29)
+      .unix(),
+  })
+
+  const expected = false
+  t.is(actual, expected)
+})

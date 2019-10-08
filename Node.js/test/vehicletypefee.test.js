@@ -1,15 +1,72 @@
 import test from 'ava'
+import isTollFreeVehicle from '../src/utils/toll-free-vehicle'
 
-test.todo('that car is NOT toll free')
+test('that car is NOT toll free', t => {
 
-test.todo('that motorbike is toll free')
+  const actual = isTollFreeVehicle({
+    vehicleType: 'car',
+  })
 
-test.todo('that tractor is toll free')
+  const expected = false
+  t.is(actual, expected)
+})
 
-test.todo('that emergency is toll free')
+test('that motorbike is toll free', t => {
 
-test.todo('that diplomat is toll free')
+  const actual = isTollFreeVehicle({
+    vehicleType: 'motorbike',
+  })
 
-test.todo('that foreign is toll free')
+  const expected = true
+  t.is(actual, expected)
+})
 
-test.todo('that military is toll free')
+test('that tractor is toll free', t => {
+
+  const actual = isTollFreeVehicle({
+    vehicleType: 'tractor',
+  })
+
+  const expected = true
+  t.is(actual, expected)
+})
+
+test('that emergency is toll free', t => {
+
+  const actual = isTollFreeVehicle({
+    vehicleType: 'emergency',
+  })
+
+  const expected = true
+  t.is(actual, expected)
+})
+
+test('that diplomat is toll free', t => {
+
+  const actual = isTollFreeVehicle({
+    vehicleType: 'diplomat',
+  })
+
+  const expected = true
+  t.is(actual, expected)
+})
+
+test('that foreign is toll free', t => {
+
+  const actual = isTollFreeVehicle({
+    vehicleType: 'foreign',
+  })
+
+  const expected = true
+  t.is(actual, expected)
+})
+
+test('that military is toll free', t => {
+
+  const actual = isTollFreeVehicle({
+    vehicleType: 'military',
+  })
+
+  const expected = true
+  t.is(actual, expected)
+})
