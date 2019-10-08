@@ -17,22 +17,6 @@ test('that christmas is a holiday', t => {
   t.is(actual, expected)
 })
 
-test('that easter (skärtorsdagen) is a holiday', t => {
-
-  const timestamp = dayjs()
-    .year(2020)
-    .month(3)
-    .date(9)
-    .unix()
-
-  const actual = isHoliday({
-    timestamp,
-  })
-
-  const expected = true
-  t.is(actual, expected)
-})
-
 test('that easter (långfredagen) is a holiday', t => {
 
   const timestamp = dayjs()
