@@ -174,7 +174,7 @@ test('that 08:00 cost 13 SEK', t => {
     timestamp,
   })
 
-  const expected = 8
+  const expected = 13
   t.is(actual, expected)
 })
 
@@ -434,7 +434,23 @@ test('that 18:00 cost 8 SEK', t => {
   t.is(actual, expected)
 })
 
-test('that 18:30 cost 8 SEK', t => {
+test('that 18:29:59 cost 8 SEK', t => {
+
+  const timestamp = dayjs()
+    .hour(18)
+    .minute(29)
+    .second(59)
+    .unix()
+
+  const actual = tollRate({
+    timestamp,
+  })
+
+  const expected = 8
+  t.is(actual, expected)
+})
+
+test('that 18:30 cost 0 SEK', t => {
 
   const timestamp = dayjs()
     .hour(18)
@@ -446,23 +462,7 @@ test('that 18:30 cost 8 SEK', t => {
     timestamp,
   })
 
-  const expected = 8
-  t.is(actual, expected)
-})
-
-test('that 18:59:59 cost 8 SEK', t => {
-
-  const timestamp = dayjs()
-    .hour(18)
-    .minute(59)
-    .second(59)
-    .unix()
-
-  const actual = tollRate({
-    timestamp,
-  })
-
-  const expected = 8
+  const expected = 0
   t.is(actual, expected)
 })
 
