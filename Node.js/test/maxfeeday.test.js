@@ -29,8 +29,8 @@ test('that 100 passages during a day does not render more than max fee (60)', t 
 
   for (let i = 0; i < 100; i++) {
     dates.push(dayjs()
-      .hour(7)
-      .minute(i)
+      .hour(6 + i % 10)
+      .minute(i % 60)
       .second(0)
       .unix())
   }

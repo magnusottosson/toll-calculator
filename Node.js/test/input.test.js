@@ -18,7 +18,7 @@ test('that undefined vehicle throws', t => {
 
   const error = t.throws(() => {
     tollFeeCalculator({
-      dates: [],
+      timestamps: [],
     })
   })
 
@@ -29,7 +29,7 @@ test('that undefined timestamps throws', t => {
 
   const error = t.throws(() => {
     tollFeeCalculator({
-      vehicle: 'car',
+      vehicleType: 'car',
     })
   })
 
@@ -39,17 +39,17 @@ test('that undefined timestamps throws', t => {
 test('that empty list of timestamps returns 0', t => {
 
   const actual = tollFeeCalculator({
-    dates: [],
+    timestamps: [],
     vehicleType: 'car',
   })
   const expected = 0
   t.is(actual, expected)
 })
 
-test('that dates with multiple days calculate the correct fee', t => {
+test('that timestamps with multiple days calculate the correct fee', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .hour(7)
         .minute(0)
@@ -65,14 +65,14 @@ test('that dates with multiple days calculate the correct fee', t => {
     vehicleType: 'car',
   })
 
-  const expected = 0
+  const expected = 36
   t.is(actual, expected)
 })
 
 test('that passes on a saturday are free', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(6)
         .unix(),
@@ -87,7 +87,7 @@ test('that passes on a saturday are free', t => {
 test('that passes on a sunday are free', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(0)
         .unix(),
@@ -102,7 +102,7 @@ test('that passes on a sunday are free', t => {
 test('that passes on christmas are free', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .month(11)
         .date(24)
@@ -118,7 +118,7 @@ test('that passes on christmas are free', t => {
 test('that passes on a motorbike on a monday are free', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(1)
         .unix(),
@@ -133,7 +133,7 @@ test('that passes on a motorbike on a monday are free', t => {
 test('that passes on a tractor on a tuesday are free', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(2)
         .unix(),
@@ -148,7 +148,7 @@ test('that passes on a tractor on a tuesday are free', t => {
 test('that passes with a car on a monday during rush hour costs 18', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(1)
         .hour(7)
@@ -166,7 +166,7 @@ test('that passes with a car on a monday during rush hour costs 18', t => {
 test('that two passes with a car on a monday during rush hour costs 36', t => {
 
   const actual = tollFeeCalculator({
-    dates: [
+    timestamps: [
       dayjs()
         .day(1)
         .hour(7)
@@ -183,6 +183,6 @@ test('that two passes with a car on a monday during rush hour costs 36', t => {
     vehicleType: 'car',
   })
 
-  const expected = 18
+  const expected = 36
   t.is(actual, expected)
 })
