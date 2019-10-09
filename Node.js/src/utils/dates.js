@@ -28,6 +28,12 @@ const isHoliday = ({ timestamp }) => {
  */
 const isWeekend = ({ timestamp }) => {
 
+  const date = dayjs
+    .unix(timestamp)
+
+  const weekDay = date.day()
+
+  return weekDay === 0 || weekDay === 6
 }
 
 /**
@@ -37,7 +43,7 @@ const isWeekend = ({ timestamp }) => {
  * @returns {boolean} true if the given timestamp is a toll free day (holiday or weekend)
  */
 const isTollFreeDay = ({ timestamp }) => {
-
+  return isHoliday({ timestamp }) || isWeekend({ timestamp })
 }
 
 module.exports = {
