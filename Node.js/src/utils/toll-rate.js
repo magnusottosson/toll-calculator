@@ -38,10 +38,6 @@ const tollRate = ({ timestamp }) => {
     return match
   })
 
-  if (!currentFee) {
-    throw new Error('timestamp does not match any price scheme')
-  }
-
   return currentFee.fee
 }
 
