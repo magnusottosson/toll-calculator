@@ -1,12 +1,4 @@
-const VALID_VEHICLE_TYPES = [
-  'car',
-  'diplomat',
-  'emergency',
-  'foreign',
-  'military',
-  'motorbike',
-  'tractor',
-]
+const VALID_VEHICLE_TYPES = require('../constants/valid-vehicle-types')
 
 /**
  * Returns true if the vehicle type is valid

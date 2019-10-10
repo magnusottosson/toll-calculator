@@ -3,8 +3,7 @@ const isTollFreeVehicle = require('./utils/toll-free-vehicle')
 const isValidVehicle = require('./utils/valid-vehicle')
 const { isTollFreeDay } = require('./utils/dates')
 const tollRate = require('./utils/toll-rate')
-
-const MAX_FEE_PER_DAY = 60
+const MAX_FEE_PER_DAY = require('./constants/max-fee-per-day')
 
 /**
  * Calculate the fee for the given vehicle and dates
