@@ -13,7 +13,7 @@ const MAX_FEE_PER_DAY = require('./constants/max-fee-per-day')
  *
  * @returns {number} Total price for the given passages
  */
-const tollFeeCalculator = ({ vehicleType, timestamps }) => {
+const calculateTollFeeForVehicleType = ({ vehicleType, timestamps }) => {
 
   if (!vehicleType) {
     throw new Error('Undefined vehicle')
@@ -152,4 +152,4 @@ const getTimestampsGroupedByDay = ({ timestamps }) => {
   }, [])
 }
 
-module.exports = tollFeeCalculator
+module.exports = calculateTollFeeForVehicleType

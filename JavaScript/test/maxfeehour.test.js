@@ -2,12 +2,14 @@ import test from 'ava'
 import dayjs from 'dayjs'
 import tollFeeCalculator from '../src/toll-fee-calculator'
 
+const TEST_DATE = '2019-10-07' //Monday
+
 test('that 10 passages during an hour does not render more than max fee (18)', t => {
 
   const timestamps = []
 
   for (let i = 0; i < 10; i++) {
-    timestamps.push(dayjs()
+    timestamps.push(dayjs(TEST_DATE)
       .hour(7)
       .minute(i)
       .second(0)
@@ -27,12 +29,12 @@ test('that 2 passes within an hour on different hours does not render more than 
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(30)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(8)
         .minute(29)
         .second(0)
@@ -49,12 +51,12 @@ test('that the order of the passes does not matter', t => {
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(8)
         .minute(29)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(30)
         .second(0)
@@ -71,17 +73,17 @@ test('that three passes within a little bit more that an hour returns correct fe
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(30)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(35)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(8)
         .minute(35)
         .second(0)
@@ -101,17 +103,17 @@ test('that three passes within a little bit more that an hour returns correct fe
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(6)
         .minute(59)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(30)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(59)
         .second(0)
@@ -128,12 +130,12 @@ test('that 2 passes exactly an hour apart renders the correct fee (18 + 8 = 26)'
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(30)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(8)
         .minute(30)
         .second(0)
@@ -151,7 +153,7 @@ test('that 50 passages during an hour does not render more than max fee (18)', t
   const timestamps = []
 
   for (let i = 0; i < 100; i++) {
-    timestamps.push(dayjs()
+    timestamps.push(dayjs(TEST_DATE)
       .hour(7)
       .minute(0)
       .second(i)
@@ -171,12 +173,12 @@ test('that 2 passages during an hour uses the most expensive fee (18)', t => {
 
   const actual = tollFeeCalculator({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(6)
         .minute(0)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(6)
         .minute(30)
         .second(0)

@@ -1,11 +1,13 @@
 import test from 'ava'
-import tollFeeCalculator from '../src/toll-fee-calculator'
+import calculateTollFeeForVehicleType from '../src/toll-fee-calculator'
 import dayjs from 'dayjs'
+
+const TEST_DATE = '2019-10-07' //Monday
 
 test('that unsupported vehicle throws', t => {
 
   const error = t.throws(() => {
-    tollFeeCalculator({
+    calculateTollFeeForVehicleType({
       dates: [],
       vehicleType: 'bus',
     })
@@ -17,7 +19,7 @@ test('that unsupported vehicle throws', t => {
 test('that undefined vehicle throws', t => {
 
   const error = t.throws(() => {
-    tollFeeCalculator({
+    calculateTollFeeForVehicleType({
       timestamps: [],
     })
   })
@@ -28,7 +30,7 @@ test('that undefined vehicle throws', t => {
 test('that undefined timestamps throws', t => {
 
   const error = t.throws(() => {
-    tollFeeCalculator({
+    calculateTollFeeForVehicleType({
       vehicleType: 'car',
     })
   })
@@ -38,7 +40,7 @@ test('that undefined timestamps throws', t => {
 
 test('that empty list of timestamps returns 0', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [],
     vehicleType: 'car',
   })
@@ -48,14 +50,14 @@ test('that empty list of timestamps returns 0', t => {
 
 test('that timestamps with multiple days calculate the correct fee', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .hour(7)
         .minute(0)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .add(1, 'day')
         .hour(7)
         .minute(0)
@@ -71,9 +73,9 @@ test('that timestamps with multiple days calculate the correct fee', t => {
 
 test('that passes on a saturday are free', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(6)
         .unix(),
     ],
@@ -86,9 +88,9 @@ test('that passes on a saturday are free', t => {
 
 test('that passes on a sunday are free', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(0)
         .unix(),
     ],
@@ -101,9 +103,9 @@ test('that passes on a sunday are free', t => {
 
 test('that passes on christmas are free', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .month(11)
         .date(24)
         .unix(),
@@ -117,9 +119,9 @@ test('that passes on christmas are free', t => {
 
 test('that passes on a motorbike on a monday are free', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(1)
         .unix(),
     ],
@@ -132,9 +134,9 @@ test('that passes on a motorbike on a monday are free', t => {
 
 test('that passes on a tractor on a tuesday are free', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(2)
         .unix(),
     ],
@@ -147,9 +149,9 @@ test('that passes on a tractor on a tuesday are free', t => {
 
 test('that passes with a car on a monday during rush hour costs 18', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(1)
         .hour(7)
         .minute(0)
@@ -165,15 +167,15 @@ test('that passes with a car on a monday during rush hour costs 18', t => {
 
 test('that two passes with a car on a monday during rush hour costs 36', t => {
 
-  const actual = tollFeeCalculator({
+  const actual = calculateTollFeeForVehicleType({
     timestamps: [
-      dayjs()
+      dayjs(TEST_DATE)
         .day(1)
         .hour(7)
         .minute(0)
         .second(0)
         .unix(),
-      dayjs()
+      dayjs(TEST_DATE)
         .day(1)
         .hour(15)
         .minute(30)
