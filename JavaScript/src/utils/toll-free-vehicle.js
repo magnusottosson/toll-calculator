@@ -1,4 +1,5 @@
-const TOLL_FREE_VEHICLE_TYPES = require('../constants/toll-free-vehicle-types')
+const config = require('config')
+const TOLL_FREE_VEHICLE_TYPES = config.tollFreeVehicleTypes
 /**
  * Returns true if the vehicle type is toll free
  *

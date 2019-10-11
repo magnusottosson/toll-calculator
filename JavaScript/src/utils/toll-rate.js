@@ -1,5 +1,6 @@
 const dayjs = require('dayjs')
-const FEE_SCHEDULE = require('../constants/fee-schedule')
+const config = require('config')
+const FEE_SCHEDULE = config.feeSchedule
 
 /**
  * Returns the toll for the given timestamp

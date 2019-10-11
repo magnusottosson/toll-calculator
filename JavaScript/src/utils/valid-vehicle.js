@@ -1,4 +1,5 @@
-const VALID_VEHICLE_TYPES = require('../constants/valid-vehicle-types')
+const config = require('config')
+const VALID_VEHICLE_TYPES = config.validVehicleTypes
 
 /**
  * Returns true if the vehicle type is valid
