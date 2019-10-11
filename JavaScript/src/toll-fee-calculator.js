@@ -138,8 +138,13 @@ const getTimestampsGroupedByDay = ({ timestamps }) => {
   const index = {}
 
   return timestamps.reduce((result, timestamp) => {
+
     const date = dayjs
       .unix(timestamp)
+
+    if (!date.isValid()) {
+      throw new Error(`Invalid timestamps format: ${timestamp}`)
+    }
 
     const key = date
       .format('YYYYMMDD')

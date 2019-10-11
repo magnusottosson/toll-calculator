@@ -13,6 +13,10 @@ const tollRate = ({ timestamp }) => {
   const date = dayjs
     .unix(timestamp)
 
+  if (!date.isValid()) {
+    throw new Error(`Invalid timestamps format: ${timestamp}`)
+  }
+
   const hour = date.hour()
   const minute = date.minute()
 

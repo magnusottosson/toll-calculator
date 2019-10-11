@@ -1,5 +1,6 @@
 import test from 'ava'
 import calculateTollFeeForVehicleType from '../src/toll-fee-calculator'
+import tollRate from '../src/utils/toll-rate'
 import dayjs from 'dayjs'
 
 const TEST_DATE = '2019-10-07' //Monday
@@ -8,7 +9,7 @@ test('that unsupported vehicle throws', t => {
 
   const error = t.throws(() => {
     calculateTollFeeForVehicleType({
-      dates: [],
+      timestamps: [],
       vehicleType: 'bus',
     })
   })
@@ -36,6 +37,29 @@ test('that undefined timestamps throws', t => {
   })
 
   t.is(error.message, 'Undefined timestamps')
+})
+
+test('that timestamps in invalid formats throws', t => {
+
+  const error = t.throws(() => {
+    calculateTollFeeForVehicleType({
+      timestamps: ['abc'],
+      vehicleType: 'car',
+    })
+  })
+
+  t.is(error.message, 'Invalid timestamps format: abc')
+})
+
+test('that tollRate with timestamps in invalid formats throws', t => {
+
+  const error = t.throws(() => {
+    tollRate({
+      timestamp: 'abc',
+    })
+  })
+
+  t.is(error.message, 'Invalid timestamps format: abc')
 })
 
 test('that empty list of timestamps returns 0', t => {
